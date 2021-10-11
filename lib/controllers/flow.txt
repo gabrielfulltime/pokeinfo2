@@ -1,0 +1,3 @@
+Controllers Bloc
+Request == Ui -> controllers -> repository/service
+Response == Repository/service -> controllers -> Ui

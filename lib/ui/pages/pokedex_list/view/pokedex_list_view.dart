@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:poke_info/domain/models/pokedexitem_class.dart';
 import 'package:poke_info/domain/services/pokeapi_web.dart';
+import 'package:poke_info/ui/pages/pokedex_specifications/view/pokedex_specifications.dart';
 
 class PokedexListView extends StatefulWidget {
   final PokemonWebApi repository;
@@ -28,7 +29,16 @@ class _PokedexListViewState extends State<PokedexListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Pokedex", style: _styleWhite()),
+          title: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Pokedex", style: _styleWhite()),
+                LimitedBox(maxHeight: 50, child: Image.asset("images/pikachu.png"))
+              ],
+            ),
+          ),
         ),
         body: RefreshIndicator(
           onRefresh: () {
@@ -46,7 +56,7 @@ class _PokedexListViewState extends State<PokedexListView> {
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 250, childAspectRatio: 5 / 5, crossAxisSpacing: 10, mainAxisSpacing: 10),
                 builderDelegate:
-                    PagedChildBuilderDelegate<PokedexItem>(itemBuilder: (BuildContext context, item, int index) {
+                PagedChildBuilderDelegate<PokedexItem>(itemBuilder: (BuildContext context, item, int index) {
                   List<Color?> colors = [];
 
                   for (String type in item.type!) {
@@ -58,7 +68,10 @@ class _PokedexListViewState extends State<PokedexListView> {
                     child: InkWell(
                       overlayColor: MaterialStateColor.resolveWith((states) => colors[0]!),
                       borderRadius: BorderRadius.circular(15),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                            PokemonSpecifications()));
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         child: Padding(
@@ -127,7 +140,7 @@ class _PokedexListViewState extends State<PokedexListView> {
   _scrollListener() {
     if (scroll.offset >= scroll.position.maxScrollExtent - 150 &&
         _pagingController.value.status != PagingStatus.ongoing) {
-      _pagingController.nextPageKey = _pagingController.itemList!.length;
+      _pagingController.nextPageKey = _pagingController.itemList!.length + 1;
     }
   }
 

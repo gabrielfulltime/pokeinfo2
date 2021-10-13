@@ -21,7 +21,7 @@ class PokedexFeature extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    Text(AppLocalizations.of(context)!.pokedex),
+                    Text("${AppLocalizations.of(context)!.pokedex}"),
                     Image.asset(pokedexImage),
                   ],
                 ),

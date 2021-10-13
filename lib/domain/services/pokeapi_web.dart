@@ -1,20 +1,25 @@
 import 'dart:convert';
 
 // import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:poke_info/domain/models/pokedexitem_class.dart';
 
 class PokemonWebApi {
+  const PokemonWebApi({Key? key});
   Future<List<PokedexItem>> findAll(final int pokemonQuantity) async {
     Response response = await _pokedexListRequest(pokemonQuantity);
     List<PokedexItem> allPokedex = _toPokedexList(response);
     return allPokedex;
   }
 
-  Future<List<PokedexItem>> findAllPokedex({required int initialPoint, required int endPoint}) async {
+  Future<List<PokedexItem>> findAllPokedex({required int point}) async {
     final List<PokedexItem> allPokedex = [];
-    for (int i = initialPoint; i <= endPoint; i++) {
+    for (int i = point; i <= point+10; i++) {
+
       PokedexItem? pokemonItem = await findA(nameOrId: i.toString());
+      print (pokemonItem);
       if (pokemonItem == null) break;
       allPokedex.add(pokemonItem);
     }
@@ -33,7 +38,7 @@ class PokemonWebApi {
   Future<dynamic> findType(final String type) async {
     final String lowerType = type.toLowerCase();
     final Uri uri = Uri.parse("https://pokeapi.co/api/v2/type/$lowerType");
-    Response response = await get(uri).timeout(Duration(seconds: 5));
+    Response response = await http.get(uri).timeout(Duration(seconds: 5));
     if (response.statusCode != 200) {
       return null;
     }
@@ -42,7 +47,7 @@ class PokemonWebApi {
 
   Future<Response> _pokedexListRequest(int quantidadePokemon) async {
     final Uri uri = Uri.parse("https://pokeapi.co/api/v2/pokemon?limit=$quantidadePokemon");
-    return await get(uri).timeout(Duration(seconds: 5));
+    return await http.get(uri).timeout(Duration(seconds: 5));
   }
 
   PokedexItem _toPokemonItem(Response response) {
@@ -68,7 +73,7 @@ class PokemonWebApi {
   Future<Response> _requisicaoPokemonItem(String name) async {
     final String lowerName = name.toLowerCase();
     final String url = "https://pokeapi.co/api/v2/pokemon/$lowerName";
-    final Response response = await get(Uri.parse(url)).timeout(Duration(seconds: 5));
+    final Response response = await http.get(Uri.parse(url)).timeout(Duration(seconds: 5));
     return response;
   }
 }

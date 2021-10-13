@@ -6,26 +6,26 @@ class PokedexItem {
   late final Pokemon pokemon;
   bool found = true;
   TypeRelations? typeRelations;
-  List<dynamic>? type = [];
+  List<String>? type = [];
   List<dynamic>? status = [];
   List<String> evolutions = [];
 
   static Map<dynamic, Color?> colorsType = {
-    "normal": Colors.grey[100],
+    "normal": Colors.grey[600],
     "fighting": Colors.orange[700],
-    "flying": Colors.blue[100],
+    "flying": Colors.blue[400],
     "poison": Colors.deepPurple[400],
     "ground": Colors.brown[500],
-    "rock": Colors.grey[400],
+    "rock": Colors.grey[600],
     "bug": Colors.green[800],
     "ghost": Colors.purple[300],
     "steel": Colors.blueGrey[500],
     "fire": Colors.red[400],
     "water": Colors.lightBlue[500],
     "grass": Colors.lightGreen[700],
-    "electric": Colors.yellow[300],
+    "electric": Colors.lime[500],
     "psychic": Colors.pink[400],
-    "ice": Colors.blue[300],
+    "ice": Colors.blueAccent[400],
     "dragon": Colors.red[600],
     "dark": Colors.black54,
     "fairy": Colors.pink[300]

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:poke_info/app_dependencies/app_dependencies.dart';
 import 'package:poke_info/routes/routes.dart';
 
 class PokedexFeature extends StatelessWidget {

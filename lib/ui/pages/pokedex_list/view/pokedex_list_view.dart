@@ -6,8 +6,8 @@ class PokedexLitsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text("AAAAAAAAAAAAAAAA"),
+      body: Text(""),
     );
-    // TODO: implement build
+
   }
 }

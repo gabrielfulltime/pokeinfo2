@@ -6,9 +6,9 @@ class PokedexListCubit extends Cubit<List<PokedexItem>> {
   PokedexListCubit(this.pokemonWebApi) : super([]);
 final PokemonWebApi pokemonWebApi;
   
-  Future<void> loadPokedex(int i) async {
+  Future<void> loadPokedex(int startPoint,int endPoint ) async {
     final List<PokedexItem> pokedex =
-    await pokemonWebApi.findAllPokedex(point: i);
+    await pokemonWebApi.findAllPokedex(startPoint: startPoint, endPoint: endPoint );
     emit(pokedex);
   }
 }

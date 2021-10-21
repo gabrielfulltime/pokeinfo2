@@ -5,6 +5,7 @@ import 'package:poke_info/app_dependencies/app_dependencies.dart';
 import 'package:poke_info/domain/services/pokeapi_web.dart';
 import 'package:poke_info/routes/routes.dart';
 
+
 void main() {
   runApp(const MaterialApp(
     home: Pokeinfo(pokemonWebApi: PokemonWebApi(),),

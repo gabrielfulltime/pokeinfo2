@@ -14,9 +14,9 @@ class PokemonWebApi {
     return allPokedex;
   }
 
-  Future<List<PokedexItem>> findAllPokedex({required int point}) async {
+  Future<List<PokedexItem>> findAllPokedex({required int startPoint, required int endPoint}) async {
     final List<PokedexItem> allPokedex = [];
-    for (int i = point; i <= point+9; i++) {
+    for (int i = startPoint; i <= endPoint; i++) {
 
       PokedexItem? pokemonItem = await findA(nameOrId: i.toString());
       print (pokemonItem);

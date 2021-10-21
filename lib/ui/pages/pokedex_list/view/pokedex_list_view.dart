@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:poke_info/domain/models/pokedexitem_class.dart';
 import 'package:poke_info/domain/services/pokeapi_web.dart';
-import 'package:poke_info/ui/pages/pokedex_specifications/view/pokedex_specifications.dart';
+import 'package:poke_info/routes/routes.dart';
+import 'package:poke_info/ui/pages/pokedex_specifications/view/pokemon_specifications.dart';
 
 class PokedexListView extends StatefulWidget {
   final PokemonWebApi repository;
@@ -34,7 +35,7 @@ class _PokedexListViewState extends State<PokedexListView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Pokedex", style: _styleWhite()),
+                Text("Pokedex", style: _styleText()),
                 LimitedBox(maxHeight: 50, child: Image.asset("images/pikachu.png"))
               ],
             ),
@@ -66,11 +67,11 @@ class _PokedexListViewState extends State<PokedexListView> {
                   return Material(
                     color: Colors.black12,
                     child: InkWell(
+
                       overlayColor: MaterialStateColor.resolveWith((states) => colors[0]!),
                       borderRadius: BorderRadius.circular(15),
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            PokemonSpecifications()));
+                        Navigator.pushNamed(context, Routes.pokemonSpecifications, arguments: item.pokemon.pokedexId);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -81,10 +82,10 @@ class _PokedexListViewState extends State<PokedexListView> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(item.pokemon.pokemonName.toUpperCase(), style: _styleWhite()),
+                                  Text(item.pokemon.pokemonName.toUpperCase(), style: _styleText()),
                                   Text(
                                     "Nº ${item.pokemon.pokedexId.toString().padLeft(3, "0")}",
-                                    style: _styleWhite(),
+                                    style: _styleText(),
                                   ),
                                 ],
                               ),
@@ -122,7 +123,8 @@ class _PokedexListViewState extends State<PokedexListView> {
       pokedex.add(Container(
         child: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Text("${types[i].toUpperCase()}", style: _styleWhite()),
+          child: Text("${types[i].toUpperCase()}", style: _styleText(color: types[i].toLowerCase() == "electric"?Colors.black:
+          null)),
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
@@ -133,8 +135,8 @@ class _PokedexListViewState extends State<PokedexListView> {
     return pokedex;
   }
 
-  TextStyle _styleWhite() {
-    return TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+  TextStyle _styleText({Color? color}) {
+    return TextStyle(color: color==null?Colors.white:color, fontWeight: FontWeight.bold);
   }
 
   _scrollListener() {
@@ -149,7 +151,7 @@ class _PokedexListViewState extends State<PokedexListView> {
     int endPoint = pageKey + 9;
     if (endPoint >= 898) endPoint = 898;
     try {
-      final List<PokedexItem> newPage = await _fetchPokemonsWeb.findAllPokedex(point: pageKey);
+      final List<PokedexItem> newPage = await _fetchPokemonsWeb.findAllPokedex(startPoint: pageKey, endPoint: endPoint);
       print(newPage);
       final bool isLastPage = endPoint <= 898;
       if (isLastPage) {

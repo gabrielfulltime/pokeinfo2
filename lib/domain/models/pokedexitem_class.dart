@@ -23,7 +23,7 @@ class PokedexItem {
     "fire": Colors.red[400],
     "water": Colors.lightBlue[500],
     "grass": Colors.lightGreen[700],
-    "electric": Colors.lime[500],
+    "electric": Colors.yellow,
     "psychic": Colors.pink[400],
     "ice": Colors.blueAccent[400],
     "dragon": Colors.red[600],
